@@ -1,0 +1,163 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Igor Gnot API
+  license:
+    name: MIT
+servers:
+  - url: https://api.igorgnot.com/v1
+paths:
+  /documents:
+    get:
+      summary: List all documents in the workspace. This endpoint supports filtering by author, date range, and document type. Returns a paginated list of documents with metadata including title, author, and last modified timestamp.
+      operationId: listDocuments
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: A paged array of documents
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new document in the workspace. This endpoint allows you to create documents with initial content and metadata. Specify the document title, content, and optional tags for organization.
+      operationId: createDocuments
+      responses:
+        201:
+          description: Document created successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /documents/{documentId}:
+    get:
+      summary: Retrieve details of a specific document. This endpoint fetches the full content and metadata of a document by its unique identifier. Includes version history and collaboration information.
+      operationId: showDocumentById
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          description: The id of the document to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: Document details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update an existing document. This endpoint modifies the content, title, or metadata of a document. Supports partial updates and maintains version history.
+      operationId: updateDocument
+      responses:
+        200:
+          description: Document updated successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users:
+    get:
+      summary: List all users in the workspace. This endpoint provides a paginated list of user accounts with their roles and activity status. Useful for user management and access control.
+      operationId: listUsers
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: A paged array of users
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Document:
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        author:
+          type: string
+    Documents:
+      type: array
+      items:
+        $ref: '#/components/schemas/Document'
+    User:
+      required:
+        - id
+        - email
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        active:
+          type: boolean
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

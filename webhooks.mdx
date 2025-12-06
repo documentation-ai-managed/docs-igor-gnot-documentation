@@ -1,0 +1,202 @@
+---
+title: Webhooks
+description: Set up webhooks to receive real-time notifications from Igor Gnot Documentation
+---
+
+Webhooks enable real-time communication between Igor Gnot Documentation and your applications. You receive instant notifications when events occur, allowing for automated workflows. This guide explains how to configure and use webhooks effectively.
+
+<Columns cols={2}>
+  <Card title="Event Types" icon="bell" href="#events">
+    Learn about available webhook events.
+  </Card>
+  <Card title="Configuration" icon="settings" href="#setup">
+    Step-by-step webhook setup guide.
+  </Card>
+</Columns>
+
+## Understanding Webhooks
+
+Webhooks send HTTP POST requests to your specified URL when events happen in Igor Gnot Documentation. You process these payloads to trigger actions in your systems.
+
+<Steps>
+  <Step title="Choose Events" icon="list">
+    Select which events you want to monitor.
+  </Step>
+  <Step title="Set Endpoint URL" icon="link">
+    Provide a secure HTTPS URL to receive webhooks.
+    
+    <CodeGroup tabs="Node.js,Python">
+      ````javascript
+const express = require('express');
+const app = express();
+
+app.post('/webhook', (req, res) => {
+  const payload = req.body;
+  console.log('Received webhook:', payload);
+  res.sendStatus(200);
+});
+
+app.listen(3000);
+      ````
+      ````python
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    payload = request.json
+    print('Received webhook:', payload)
+    return 'OK', 200
+
+if __name__ == '__main__':
+    app.run(port=3000)
+      ````
+    </CodeGroup>
+  </Step>
+  <Step title="Test Webhook" icon="check-circle">
+    Send a test payload to verify your endpoint.
+  </Step>
+</Steps>
+
+## Available Events
+
+Igor Gnot Documentation triggers webhooks for various events. You subscribe to specific events based on your needs.
+
+<Tabs>
+  <Tab title="Document Events" icon="file-text">
+    Notifications for document creation, updates, and deletions.
+    
+    <Expandable title="Event Payload" default-open="false">
+      ````json
+      {
+        "event": "document.updated",
+        "document_id": "doc_123",
+        "user_id": "user_456",
+        "timestamp": "2024-01-15T10:30:00Z"
+      }
+      ````
+    </Expandable>
+  </Tab>
+  <Tab title="User Events" icon="users">
+    Alerts for user actions like login and role changes.
+    
+    <Expandable title="Event Payload" default-open="false">
+      ````json
+      {
+        "event": "user.logged_in",
+        "user_id": "user_456",
+        "ip_address": "192.168.1.1",
+        "timestamp": "2024-01-15T10:30:00Z"
+      }
+      ````
+    </Expandable>
+  </Tab>
+  <Tab title="Workspace Events" icon="folder">
+    Notifications for workspace-level changes.
+    
+    <Expandable title="Event Payload" default-open="false">
+      ````json
+      {
+        "event": "workspace.updated",
+        "workspace_id": "ws_789",
+        "changes": ["name", "settings"],
+        "timestamp": "2024-01-15T10:30:00Z"
+      }
+      ````
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## Security and Authentication
+
+Secure your webhooks with proper authentication. You verify incoming requests to prevent unauthorized access.
+
+| Method | Description | Security Level |
+|--------|-------------|----------------|
+| HMAC Signature | Cryptographic signature | High |
+| API Key | Shared secret key | Medium |
+| IP Whitelist | Restrict by IP address | Low |
+
+<Callout kind="alert">Always use HTTPS URLs and verify webhook signatures to ensure security.</Callout>
+
+## Error Handling
+
+Handle webhook failures gracefully. You implement retry logic and error monitoring.
+
+<ExpandableGroup>
+  <Expandable title="Retry Strategy" default-open="true">
+    Igor Gnot retries failed webhooks with exponential backoff.
+  </Expandable>
+  <Expandable title="Monitoring" default-open="false">
+    Set up monitoring to track webhook delivery success rates.
+  </Expandable>
+  <Expandable title="Debugging" default-open="false">
+    Use webhook logs to troubleshoot delivery issues.
+  </Expandable>
+</ExpandableGroup>
+
+## Best Practices
+
+Follow these practices for reliable webhook implementation. You ensure consistent and secure communication.
+
+<Steps>
+  <Step title="Validate Payloads" icon="check-circle">
+    Always validate incoming webhook data.
+  </Step>
+  <Step title="Respond Quickly" icon="zap">
+    Process webhooks asynchronously and respond within 5 seconds.
+  </Step>
+  <Step title="Log Events" icon="file-text">
+    Maintain logs of all webhook activities for auditing.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="Go,Ruby">
+  ````go
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+)
+
+func verifySignature(payload, signature, secret string) bool {
+	mac := hmac.New(sha256.New, []byte(secret))
+	mac.Write([]byte(payload))
+	expected := hex.EncodeToString(mac.Sum(nil))
+	return hmac.Equal([]byte(signature), []byte(expected))
+}
+  ````
+  ````ruby
+require 'openssl'
+
+def verify_signature(payload, signature, secret)
+  digest = OpenSSL::Digest.new('sha256')
+  expected = OpenSSL::HMAC.hexdigest(digest, secret, payload)
+  Rack::Utils.secure_compare(signature, expected)
+end
+  ````
+</CodeGroup>
+
+<Callout kind="tip">Use idempotent operations in your webhook handlers to prevent duplicate processing.</Callout>
+
+## Common Use Cases
+
+Webhooks power various automation scenarios. You integrate Igor Gnot Documentation with your existing workflows.
+
+<ExpandableGroup>
+  <Expandable title="Sync to External Systems" default-open="false">
+    Update external databases or CRMs when documents change.
+  </Expandable>
+  <Expandable title="Notification Systems" default-open="false">
+    Send alerts to Slack or email when important events occur.
+  </Expandable>
+  <Expandable title="Backup Automation" default-open="false">
+    Trigger backups when new documents are created.
+  </Expandable>
+</ExpandableGroup>
+
+By configuring webhooks, you extend Igor Gnot Documentation's capabilities and integrate it seamlessly into your automation ecosystem.

@@ -1,0 +1,162 @@
+---
+title: Authentication
+description: Learn how to authenticate and manage access in Igor Gnot Documentation
+---
+
+Authentication is the foundation of secure access in Igor Gnot Documentation. You control who can view, edit, and manage your documents through various authentication methods. This guide covers API keys, OAuth integration, and user management.
+
+<Columns cols={2}>
+  <Card title="API Keys" icon="key" href="#api-keys">
+    Generate secure API keys for programmatic access.
+  </Card>
+  <Card title="OAuth" icon="shield" href="#oauth">
+    Integrate with OAuth providers for seamless login.
+  </Card>
+</Columns>
+
+## API Key Authentication
+
+API keys provide programmatic access to Igor Gnot Documentation. You create keys in the dashboard and use them to authenticate API requests.
+
+<Steps>
+  <Step title="Generate API Key" icon="key">
+    Go to Settings > API Keys and click "Generate New Key".
+    
+    <CodeGroup tabs="cURL,JavaScript">
+      ````bash
+      curl -X GET \
+        https://api.igorgnot.com/v1/documents \
+        -H "Authorization: Bearer YOUR_API_KEY"
+      ````
+      ````javascript
+const response = await fetch('https://api.igorgnot.com/v1/documents', {
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY'
+  }
+});
+      ````
+    </CodeGroup>
+  </Step>
+  <Step title="Secure Your Key" icon="lock">
+    Store API keys securely and never commit them to version control.
+  </Step>
+  <Step title="Rotate Keys Regularly" icon="refresh-cw">
+    Update keys periodically to maintain security.
+  </Step>
+</Steps>
+
+## OAuth Integration
+
+OAuth allows users to sign in using existing accounts from providers like Google or GitHub. You configure OAuth in the admin panel.
+
+<Tabs>
+  <Tab title="Google" icon="search">
+    Set up Google OAuth for easy authentication.
+    
+    <Expandable title="Setup Steps" default-open="false">
+      1. Go to Google Cloud Console
+      2. Create OAuth credentials
+      3. Configure redirect URI
+      4. Enter credentials in Igor Gnot settings
+    </Expandable>
+  </Tab>
+  <Tab title="GitHub" icon="github">
+    Integrate with GitHub for developer-focused teams.
+    
+    <Expandable title="Setup Steps" default-open="false">
+      1. Create OAuth App in GitHub
+      2. Set authorization callback URL
+      3. Configure in Igor Gnot admin
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## User Management
+
+Manage team members and their access levels in Igor Gnot Documentation. You assign roles to control permissions.
+
+| Role | Permissions | Use Case |
+|------|-------------|----------|
+| Viewer | Read documents | External stakeholders |
+| Editor | Create and edit | Content creators |
+| Admin | Full access | Team leads |
+
+<Callout kind="alert">Always use strong passwords and enable two-factor authentication for admin accounts.</Callout>
+
+## Single Sign-On (SSO)
+
+SSO simplifies authentication for enterprise users. You integrate with identity providers like Okta or Active Directory.
+
+<ExpandableGroup>
+  <Expandable title="What is SSO?" default-open="true">
+    Single Sign-On allows users to access multiple applications with one login.
+  </Expandable>
+  <Expandable title="Supported Providers" default-open="false">
+    Igor Gnot supports SAML 2.0, OAuth 2.0, and OpenID Connect.
+  </Expandable>
+  <Expandable title="Setup Process" default-open="false">
+    Configure SSO in the admin settings with your provider's details.
+  </Expandable>
+</ExpandableGroup>
+
+## Security Best Practices
+
+Follow these practices to maintain secure authentication in Igor Gnot Documentation. You protect your data and prevent unauthorized access.
+
+<Steps>
+  <Step title="Enable MFA" icon="shield">
+    Require multi-factor authentication for all users.
+  </Step>
+  <Step title="Monitor Access Logs" icon="eye">
+    Regularly review authentication logs for suspicious activity.
+  </Step>
+  <Step title="Revoke Compromised Keys" icon="x-circle">
+    Immediately disable keys if you suspect compromise.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="Python,Go">
+  ````python
+import requests
+
+# Authenticate with API key
+def get_documents(api_key):
+    headers = {'Authorization': f'Bearer {api_key}'}
+    response = requests.get('https://api.igorgnot.com/v1/documents', headers=headers)
+    return response.json()
+  ````
+  ````go
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+func getDocuments(apiKey string) {
+	req, _ := http.NewRequest("GET", "https://api.igorgnot.com/v1/documents", nil)
+	req.Header.Set("Authorization", "Bearer "+apiKey)
+	// Handle response
+}
+  ````
+</CodeGroup>
+
+<Callout kind="tip">Use environment variables to store API keys in your applications.</Callout>
+
+## Troubleshooting
+
+Resolve common authentication issues quickly. You diagnose problems and restore access.
+
+<ExpandableGroup>
+  <Expandable title="API Key Not Working" default-open="false">
+    Verify the key is active and has the correct permissions.
+  </Expandable>
+  <Expandable title="OAuth Login Fails" default-open="false">
+    Check provider configuration and redirect URIs.
+  </Expandable>
+  <Expandable title="Permission Denied" default-open="false">
+    Ensure your role has access to the requested resource.
+  </Expandable>
+</ExpandableGroup>
+
+By implementing robust authentication, you ensure your Igor Gnot Documentation remains secure and accessible to authorized users only.

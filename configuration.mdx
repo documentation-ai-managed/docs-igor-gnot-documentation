@@ -1,0 +1,178 @@
+---
+title: Configuration
+description: Configure Igor Gnot Documentation to fit your workflow and preferences
+---
+
+Configuration allows you to customize Igor Gnot Documentation to match your team's needs. You adjust settings for appearance, integrations, and behavior. This guide covers all configuration options available.
+
+<Columns cols={3}>
+  <Card title="Workspace Settings" icon="settings" href="#workspace">
+    Configure your documentation workspace.
+  </Card>
+  <Card title="Integrations" icon="plug" href="#integrations">
+    Connect with external tools and services.
+  </Card>
+  <Card title="Customization" icon="palette" href="#customization">
+    Personalize the appearance and behavior.
+  </Card>
+</Columns>
+
+## Workspace Configuration
+
+Set up your Igor Gnot workspace with basic settings. You define the workspace name, default language, and access controls.
+
+<Steps>
+  <Step title="Access Settings" icon="settings">
+    Navigate to Admin > Workspace Settings.
+  </Step>
+  <Step title="Set Workspace Name" icon="edit">
+    Enter a descriptive name for your workspace.
+    
+    <CodeGroup tabs="JSON,YAML">
+      ````json
+      {
+        "workspace": {
+          "name": "My Team Docs",
+          "language": "en",
+          "timezone": "UTC"
+        }
+      }
+      ````
+      ````yaml
+      workspace:
+        name: My Team Docs
+        language: en
+        timezone: UTC
+      ````
+    </CodeGroup>
+  </Step>
+  <Step title="Configure Permissions" icon="shield">
+    Define default access levels for new members.
+  </Step>
+</Steps>
+
+## Integration Setup
+
+Connect Igor Gnot Documentation with your favorite tools. You enable integrations to automate workflows and sync data.
+
+<Tabs>
+  <Tab title="GitHub" icon="github">
+    Sync documentation with GitHub repositories.
+    
+    <Expandable title="Setup" default-open="false">
+      Connect your GitHub account and select repositories to sync.
+    </Expandable>
+  </Tab>
+  <Tab title="Slack" icon="message-square">
+    Receive notifications in Slack channels.
+    
+    <Expandable title="Setup" default-open="false">
+      Add the Igor Gnot bot to your Slack workspace.
+    </Expandable>
+  </Tab>
+  <Tab title="Zapier" icon="zap">
+    Automate workflows with Zapier integrations.
+    
+    <Expandable title="Setup" default-open="false">
+      Create Zaps to connect Igor Gnot with 2000+ apps.
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## Customization Options
+
+Personalize the look and feel of Igor Gnot Documentation. You choose themes, layouts, and branding elements.
+
+| Option | Description | Impact |
+|--------|-------------|--------|
+| Theme | Light/dark mode | User experience |
+| Logo | Custom branding | Professional appearance |
+| Layout | Sidebar position | Navigation ease |
+
+<Callout kind="info">Changes to customization settings apply immediately across the workspace.</Callout>
+
+## Advanced Configuration
+
+Dive deeper into configuration with advanced options. You fine-tune performance and security settings.
+
+<ExpandableGroup>
+  <Expandable title="API Rate Limits" default-open="false">
+    Configure API request limits to prevent abuse.
+  </Expandable>
+  <Expandable title="Audit Logging" default-open="false">
+    Enable detailed logging for compliance and debugging.
+  </Expandable>
+  <Expandable title="Backup Settings" default-open="false">
+    Set up automatic backups and retention policies.
+  </Expandable>
+</ExpandableGroup>
+
+## Environment Variables
+
+Use environment variables for sensitive configuration. You keep secrets secure and environment-specific.
+
+<CodeGroup tabs="Shell,Docker">
+  ````bash
+  export IGOR_GNOT_API_KEY="your-secret-key"
+export IGOR_GNOT_DATABASE_URL="postgres://user:pass@host/db"
+export IGOR_GNOT_DEBUG="false"
+  ````
+  ````dockerfile
+  ENV IGOR_GNOT_API_KEY=your-secret-key
+ENV IGOR_GNOT_DATABASE_URL=postgres://user:pass@host/db
+ENV IGOR_GNOT_DEBUG=false
+  ````
+</CodeGroup>
+
+<Steps>
+  <Step title="Set Variables" icon="terminal">
+    Define environment variables in your deployment.
+  </Step>
+  <Step title="Restart Service" icon="refresh-cw">
+    Restart Igor Gnot to pick up new variables.
+  </Step>
+  <Step title="Verify Configuration" icon="check-circle">
+    Check logs to confirm settings are applied.
+  </Step>
+</Steps>
+
+<Callout kind="tip">Use a secrets manager like AWS Secrets Manager for production environments.</Callout>
+
+## Configuration File
+
+For complex setups, use a configuration file. You define all settings in a structured format.
+
+<Expandable title="Sample Config File" default-open="false">
+  ````json
+  {
+    "workspace": {
+      "name": "Team Docs",
+      "theme": "dark",
+      "integrations": {
+        "github": {
+          "enabled": true,
+          "repos": ["org/repo1", "org/repo2"]
+        }
+      }
+    }
+  }
+  ````
+</Expandable>
+
+## Troubleshooting Configuration
+
+Resolve configuration issues with these tips. You diagnose and fix common problems.
+
+<ExpandableGroup>
+  <Expandable title="Settings Not Applying" default-open="false">
+    Clear cache and restart the application.
+  </Expandable>
+  <Expandable title="Integration Fails" default-open="false">
+    Verify API keys and permissions for connected services.
+  </Expandable>
+  <Expandable title="Performance Issues" default-open="false">
+    Check rate limits and optimize resource usage.
+  </Expandable>
+</ExpandableGroup>
+
+Proper configuration ensures Igor Gnot Documentation works seamlessly for your team, with all features tailored to your specific needs.

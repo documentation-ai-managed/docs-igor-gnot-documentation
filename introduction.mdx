@@ -1,0 +1,111 @@
+---
+title: Introduction
+description: Overview of Igor Gnot Documentation and its core capabilities
+---
+
+Igor Gnot Documentation provides a comprehensive platform for organizing and managing all your project documentation in one centralized space. You can create, edit, and collaborate on documentation with ease, ensuring your team stays informed and aligned. This introduction covers the key features and benefits of using Igor Gnot Documentation.
+
+<Columns cols={3}>
+  <Card title="Easy Organization" icon="folder" href="#organization">
+    Structure your documentation with intuitive folders and categories.
+  </Card>
+  <Card title="Collaborative Editing" icon="users" href="#collaboration">
+    Work together with your team in real-time on documentation.
+  </Card>
+  <Card title="Version Control" icon="git-branch" href="#versioning">
+    Track changes and maintain version history for all documents.
+  </Card>
+</Columns>
+
+## Key Features
+
+Igor Gnot Documentation offers powerful features to streamline your documentation process. You can integrate with popular tools, automate updates, and customize the platform to fit your workflow.
+
+<Tabs>
+  <Tab title="Organization" icon="folder">
+    Organize documents into hierarchical folders and apply tags for easy searching.
+    
+    <Steps>
+      <Step title="Create Folders" icon="folder">
+        Navigate to the sidebar and click the "New Folder" button to create a new category.
+      </Step>
+      <Step title="Add Documents" icon="file-text">
+        Inside a folder, click "New Document" to start writing your content.
+      </Step>
+      <Step title="Apply Tags" icon="tag">
+        Use tags to categorize documents and improve searchability.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Collaboration" icon="users">
+    Invite team members to collaborate on documents with role-based permissions.
+    
+    <Expandable title="Permission Levels" default-open="false">
+      Choose from Viewer, Editor, or Admin roles to control access levels.
+    </Expandable>
+  </Tab>
+  <Tab title="Integration" icon="plug">
+    Connect Igor Gnot Documentation with your existing tools like GitHub and Slack.
+    
+    <Callout kind="tip">Enable integrations in the settings panel to automate workflows.</Callout>
+  </Tab>
+</Tabs>
+
+## Getting Started
+
+To begin using Igor Gnot Documentation, sign up for an account and explore the dashboard. You can create your first document within minutes and start collaborating immediately.
+
+<CodeGroup tabs="JavaScript,Python">
+  ````javascript
+  // Initialize Igor Gnot Documentation client
+const client = new IgorGnotClient({
+  apiKey: 'your-api-key'
+});
+
+// Create a new document
+client.createDocument({
+  title: 'My First Document',
+  content: 'Welcome to Igor Gnot!'
+});
+  ````
+  ````python
+from igor_gnot import Client
+
+# Initialize client
+client = Client(api_key='your-api-key')
+
+# Create document
+document = client.create_document(
+    title='My First Document',
+    content='Welcome to Igor Gnot!'
+)
+  ````
+</CodeGroup>
+
+<ExpandableGroup>
+  <Expandable title="What is Igor Gnot Documentation?" default-open="true">
+    Igor Gnot Documentation is a cloud-based platform designed to help teams manage all their project documentation efficiently.
+  </Expandable>
+  <Expandable title="How does collaboration work?" default-open="false">
+    Team members can edit documents simultaneously, with changes tracked in real-time.
+  </Expandable>
+  <Expandable title="Is it secure?" default-open="false">
+    Yes, Igor Gnot uses enterprise-grade encryption and supports SSO integration.
+  </Expandable>
+</ExpandableGroup>
+
+## Benefits
+
+Using Igor Gnot Documentation improves productivity and reduces confusion within your team. You maintain a single source of truth for all project information.
+
+| Feature | Benefit | Use Case |
+|---------|---------|----------|
+| Real-time Collaboration | Instant updates | Remote team coordination |
+| Version History | Track changes | Audit trails and rollbacks |
+| Search Functionality | Quick access | Finding specific information |
+
+<Callout kind="info">Explore the API section for advanced integrations and automation capabilities.</Callout>
+
+## Next Steps
+
+Now that you understand the basics, dive deeper into specific features. Check out the authentication guide to set up access controls, or learn about configuration options to customize your workspace.
